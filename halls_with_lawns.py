@@ -3,8 +3,11 @@ from bs4 import BeautifulSoup
 from distance import *
 from catering import *
 from tents import *
+import sqlite3
 
 def with_lawns(city,current_add):
+    conn=sqlite3.connect('adi.db')
+    cur=conn.cursor()
     url='http://www.matrimonydirectory.com/wedding-venues-in-' +city
     r=requests.get(url)
     s=BeautifulSoup(r.content) #web scraping is done to fetch data of wedding halls
@@ -27,24 +30,26 @@ def with_lawns(city,current_add):
 
     for ob1 in arr:
         try:
-            print ob1[0]
+            d=ob1[0]
         except:
             pass
         try:
-            print ob1[1].find_all("p",{"class":"list-heading"})[0].text
+            a=ob1[1].find_all("p",{"class":"list-heading"})[0].text
         except:
             pass
         try:
-            print ob1[1].find_all("p",{"class":"list-address list-map-address"})[0].text.replace("| Map"," ")
+            c=ob1[1].find_all("p",{"class":"list-address list-map-address"})[0].text.replace("| Map"," ")
         except:
             pass
         try:
-            print ob1[1].find_all("div",{"class":"right-list right-call right-text"})[0].text
+            b=ob1[1].find_all("div",{"class":"right-list right-call right-text"})[0].text
         except:
             pass
-        print '\n'
-    print ('CATERING WALAS: ')
-    caters(city)
-    print ('TENTS WALAS: ')
-    tent(city)
+        cur.execute('INSERT INTO Myhalls(city,locality, hall_name, contact_hall, address_hall, distance_hall) Values (?,?,?,?,?,?)',(city,current_add,a,b,c,d))
+        conn.commit()
+    conn.close()        
+    print ('CATERING WALAS on work \n ')
+    caters(city,current_add)
+    print ('TENTS WALAS on work \n ')
+    tent(city,current_add)
     
