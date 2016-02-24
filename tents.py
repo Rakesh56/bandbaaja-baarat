@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import sqlite3
-
 def tent(city,locality):
    conn=sqlite3.connect('adi.db')
    cur=conn.cursor()
@@ -11,17 +10,17 @@ def tent(city,locality):
    k=s.find_all("li",{"class":"list-item"})
    for item in k:
       try:
-         a=item.find_all("a",{"class":"YPTRACK GAQ_C_BUSL"})[0].text
+         a=item.find_all("a",{"class":"YPTRACK GAQ_C_BUSL"})[0].text #gives name of Tent Service
       except:
          pass
       try:
-         b=item.find_all("b",{"class":"contact-number"})[0].text
+         b=item.find_all("b",{"class":"contact-number"})[0].text #gives contact number of Tent Service
       except:
          pass
       try:
-         c=item.find_all("address",{"class":"pull-left"})[0].text
+         c=item.find_all("address",{"class":"pull-left"})[0].text #gives address of Tent Service
       except:
          pass
-      cur.execute('INSERT INTO Mytents(city,tent_name,locality,contact_tent,address_tent) VALUES(?,?,?,?,?)',(city,a,locality,b,c))
+      cur.execute('INSERT INTO Mytents(city,tent_name,locality,contact_tent,address_tent)  VALUES(?,?,?,?,?)',(city,a,locality,b,c)) #inserting info in database
       conn.commit()
    conn.close()

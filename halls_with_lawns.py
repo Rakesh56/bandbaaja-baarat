@@ -4,7 +4,7 @@ from distance import *
 from catering import *
 from tents import *
 import sqlite3
-
+#The function below will gives you the marriage lawn information in your city and near your locality sorted wise
 def with_lawns(city,current_add):
     conn=sqlite3.connect('adi.db')
     cur=conn.cursor()
@@ -34,22 +34,20 @@ def with_lawns(city,current_add):
         except:
             pass
         try:
-            a=ob1[1].find_all("p",{"class":"list-heading"})[0].text
+            a=ob1[1].find_all("p",{"class":"list-heading"})[0].text #gives name of marriage lawn
         except:
             pass
         try:
-            c=ob1[1].find_all("p",{"class":"list-address list-map-address"})[0].text.replace("| Map"," ")
+            c=ob1[1].find_all("p",{"class":"list-address list-map-address"})[0].text.replace("| Map"," ") #gives address of marriage lawn
         except:
             pass
         try:
-            b=ob1[1].find_all("div",{"class":"right-list right-call right-text"})[0].text
+            b=ob1[1].find_all("div",{"class":"right-list right-call right-text"})[0].text #gives contact number of marriage lawn
         except:
             pass
-        cur.execute('INSERT INTO Myhalls(city,locality, hall_name, contact_hall, address_hall, distance_hall) Values (?,?,?,?,?,?)',(city,current_add,a,b,c,d))
+        cur.execute('INSERT INTO Myhalls(city,locality, hall_name, contact_hall, address_hall, distance_hall) Values (?,?,?,?,?,?)',(city,current_add,a,b,c,d)) #inserting info in database
         conn.commit()
     conn.close()        
-    print ('CATERING WALAS on work \n ')
-    caters(city,current_add)
-    print ('TENTS WALAS on work \n ')
-    tent(city,current_add)
+    caters(city,current_add) #gives catering services info
+    tent(city,current_add)  #gives Tents services info
     
