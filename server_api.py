@@ -86,5 +86,5 @@ def get_tasks(city,locality,key,date):
         return jsonify({'tasks': tasks}) #returnning json format tasks list to a server
 
 if __name__ == '__main__':
-    app.run(debug=True,port=963) #running server
+    app.run(debug=True,port=9631) #running server
 conn.close()        
