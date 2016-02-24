@@ -1,5 +1,4 @@
 import sqlite3
-
 conn=sqlite3.connect('adi.db')
 cur=conn.cursor()
 cur.execute('DROP TABLE IF EXISTS Myhalls ')
@@ -8,4 +7,6 @@ cur.execute('DROP TABLE IF EXISTS Mycaters')
 cur.execute('DROP TABLE IF EXISTS Mytents')
 cur.execute('CREATE TABLE Mycaters(city varchar(255),cater_name varchar(255),locality varchar(255),contact_cater int,address_cater TEXT )')
 cur.execute('CREATE TABLE Mytents (city varchar(255),tent_name varchar(255),locality varchar(255),contact_tent int,address_tent TEXT )')
+cur.execute('DROP TABLE IF EXISTS takekey')
+cur.execute('CREATE TABLE takekey(key varchar(255),key2 INTEGER)')
 conn.close()
