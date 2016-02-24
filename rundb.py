@@ -18,7 +18,7 @@ def get_newtasks():
 
 
     
-@app.route('/todo/<string:city>/<string:locality>/<string:key>/<string:date>', methods=['GET'])
+@app.route('/bandbaaja-baarat/city=<string:city>/locality=<string:locality>/api_key=<string:key>/day=<string:date>', methods=['GET'])
 def get_tasks(city,locality,key,date):
     #city=raw_input('Enter the city name: ')
     #locality=raw_input('enter the locality: ')
